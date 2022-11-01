@@ -1,0 +1,14 @@
+**/walletApp/node_modules/
+**/walletApp/expo/
+**/walletApp/dist/
+**/walletApp/npm-debug.*
+**/walletApp/*.jks
+**/walletApp/*.p8
+**/walletApp/*.p12
+**/walletApp/*.key
+**/walletApp/*.mobileprovision
+**/walletApp/*.orig.*
+**/walletApp/web-build/
+
+# macOS
+.DS_Store
