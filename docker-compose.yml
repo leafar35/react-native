@@ -13,7 +13,6 @@ services:
       - ./:/home/node/reac-native
     expose:
       - "3001"
-    command: "stf local --public-ip 192.168.0.115"
     environment:
       - COMPOSE_PROJECT_NAME
     tty: true
