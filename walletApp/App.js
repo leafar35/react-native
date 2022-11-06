@@ -8,6 +8,7 @@ import {
   ScrollView,
   FlatList
 } from 'react-native';
+import Pessoa from './src/Pessoas';
 
 class App extends Component {
 
@@ -43,28 +44,7 @@ class App extends Component {
 const style = StyleSheet.create({
   container: {
     flex: 1
-  },
-  areaPerson: {
-    backgroundColor: '#222',
-    height: 200,
-    marginBottom: 15
-  },
-  textPerson: {
-    color: '#fff',
-    fontSize: 20
   }
 });
 
 export default App;
-
-class Pessoa extends Component {
-  render(){
-    return (
-      <View style={style.areaPerson}>
-        <Text style={style.textPerson}>Nome.: {this.props.data.name}</Text>
-        <Text style={style.textPerson}>Idade.: {this.props.data.idade}</Text>
-        <Text style={style.textPerson}>E-mail.: {this.props.data.email}</Text>
-      </View>
-    );
-  }
-}
