@@ -3,39 +3,43 @@ import {
   Text, 
   View, 
   StyleSheet,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-  FlatList
 } from 'react-native';
-import Pessoa from './src/Pessoas';
+import {Picker} from '@react-native-picker/picker';
 
 class App extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      feed: [
-        {id:1, name: 'Rafael', idade: 35, email: 'Vianini@unochapeco.edu.br'},
-        {id:2, name: 'Rafael 1', idade: 35, email: 'Vianini@unochapeco.edu.br'},
-        {id:3, name: 'Rafael 2', idade: 35, email: 'Vianini@unochapeco.edu.br'},
-        {id:4, name: 'Rafael 4', idade: 35, email: 'Vianini@unochapeco.edu.br'},
+      pizza: 0,
+      pizzas: [
+        {id:0, name: 'pizza 1', valor: 39.50},
+        {id:1, name: 'pizza 4', valor: 39.50},
+        {id:2, name: 'pizza 3', valor: 39.50},
+        {id:3, name: 'pizza 6', valor: 39.50},        
       ]
     }
   }
 
   render(){
+
+    let pizzasitem = this.state.pizzas.map((v,k) => {
+      return <Picker.Item key={v.id} value={v.id} label={v.name} />
+    });
+
     return(
       <View style={style.container}>
+        <Text style={style.logo}>Menu Pizza</Text>
 
-        <FlatList
-          data={this.state.feed}
-          keyExtractor={(item) => item.id}
-          renderItem={({item}) =>  <Pessoa data={item} />}
+        <Picker
+          selectedValue={this.state.pizza}
+          onValueChange={(itemValue, itemIndex) => this.setState({pizza: itemValue})}
         >
+          {pizzasitem}
+        </Picker>
 
-        </FlatList>
-      
+        <Text style={style.pizzas}>Você escolheu.: {this.state.pizzas[this.state.pizza].name}</Text>
+        <Text style={style.pizzas}>R$.: 59,99</Text>
       </View>
     );
   }
@@ -43,7 +47,18 @@ class App extends Component {
 
 const style = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    marginTop: 35
+  },
+  logo: {
+    textAlign: 'center',
+    fontSize: 28,
+    fontWeight: 'bold'
+  },
+  pizzas: {
+    marginTop: 15,
+    fontSize: 25,
+    textAlign: 'center'
   }
 });
 
