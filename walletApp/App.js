@@ -3,15 +3,15 @@ import {
   Text, 
   View, 
   StyleSheet,
+  Switch
 } from 'react-native';
-import Slider from '@react-native-community/slider';
 
 class App extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      value: 0
+      status: false
     }
   }
 
@@ -20,17 +20,13 @@ class App extends Component {
       <View style={style.container}>
 
 
-        <Slider 
-          minimumValue={0}
-          maximumValue={100}
-          onValueChange={(valueSelected) => this.setState({value: valueSelected})}
-          value={this.state.value}
-          minimumTrackTintColor='#00FF00'
-          maximumTrackTintColor='#FF0000'
+        <Switch 
+          value={this.state.status}
+          onValueChange={(valueChnage) => this.setState({status: valueChnage})}
         />
 
-        <Text style={{textAlign: 'center', fontSize: 30}}>
-          {this.state.value.toFixed(0)} KG
+        <Text>
+          {this.state.status ? 'Ativo' : 'Inativo'}
         </Text>
 
       </View>
