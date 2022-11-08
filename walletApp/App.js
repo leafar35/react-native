@@ -60,12 +60,12 @@ class App extends Component {
           maximumTrackTintColor='#FF0000'
         />
         <View style={style.areaSwitch}>
-          <Text style={{width: 97, marginTop: 5}}>Não Estudante</Text>
-          <Switch style={{width: 55}}
+          <Text style={[style.areasChildren, style.mT5]}>Não Estudante</Text>
+          <Switch style={[style.areasChildren,{marginLeft: 4}]}
             onValueChange={(valueChange) => this.setState({Studenty: valueChange})}
             value={this.state.Studenty}
           />
-          <Text style={{width: 70, marginTop: 5}}>Estudante</Text>
+          <Text style={[style.areasChildren, style.mT5]}>Estudante</Text>
         </View>
         <Button style={style.btn} title='Abrir Conta' name="Enviar" onPress={() => this.sendform()} />
       </View>
@@ -89,11 +89,17 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 10
   },
+  areasChildren: {
+    flex: 1,
+  },
+  mT5: {
+    marginTop: 5
+  },
   input: {
     height: 40,
     margin: 12,
     borderWidth: 1,
-    padding: 10,
+    padding: 5,
   },
 });
 
