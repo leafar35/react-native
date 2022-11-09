@@ -4,70 +4,92 @@ import {
   Text, 
   View, 
   StyleSheet,
-  Switch,
-  TextInput,
-  Button
+  Image,
+  TouchableOpacity,
+  FlatList
 } from 'react-native';
-import Slider from '@react-native-community/slider';
+import List from './src/Components/List';
 
 class App extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      name: '',
-      age: '',
-      gender: 'M',
-      Limit: 0,
-      Studenty: false,      
-    }
-
-    this.sendform = this.sendform.bind(this);
-  }
-
-  sendform(){
-    if(this.state.name.trim() == ''){
-      return alert('Informe o Nome');
-    }
-    if(this.state.age.trim() == ''){
-      return alert('Informe a idade');
-    }
-    if(this.state.Limit == 0){
-      return alert('Selecione o limite!');
-    }
-    alert('Conta aberta com sucesso!');
+      feed: [
+        {
+          id: '1', 
+          name: 'Lucas Silva', 
+          descricao: 'Mais um dia de muitos bugs :)', 
+          imgperfil: 'https://sujeitoprogramador.com/instareact/fotoPerfil1.png', 
+          imgPublicacao: 'https://sujeitoprogramador.com/instareact/foto1.png',  
+          likeada: false, 
+          likers: 0
+         },
+        {
+          id: '2', 
+          name: 'Matheus', 
+          descricao: 'Isso sim é ser raiz!!!!!', 
+          imgperfil: 'https://sujeitoprogramador.com/instareact/fotoPerfil2.png', 
+          imgPublicacao: 'https://sujeitoprogramador.com/instareact/foto2.png', 
+          likeada: false, 
+          likers: 0
+        },
+        {
+          id: '3', 
+          name: 'Jose Augusto', 
+          descricao: 'Bora trabalhar Haha', 
+          imgperfil: 'https://sujeitoprogramador.com/instareact/fotoPerfil3.png', 
+          imgPublicacao: 'https://sujeitoprogramador.com/instareact/foto3.png',  
+          likeada: false, 
+          likers: 3
+        },
+        {
+          id: '4', 
+          name: 'Gustavo Henrique', 
+          descricao: 'Isso sim que é TI!', 
+          imgperfil: 'https://sujeitoprogramador.com/instareact/fotoPerfil1.png', 
+          imgPublicacao: 'https://sujeitoprogramador.com/instareact/foto4.png', 
+          likeada: false, 
+          likers: 1
+        },
+        {
+          id: '5', 
+          name: 'Guilherme', 
+          descricao: 'Boa tarde galera do insta...', 
+          imgperfil: 'https://sujeitoprogramador.com/instareact/fotoPerfil2.png', 
+          imgPublicacao: 'https://sujeitoprogramador.com/instareact/foto5.png',
+          likeada: false, 
+          likers: 32
+        }
+      ]
+    };
   }
 
   render(){
     return(
       <View style={style.container}>
-        <TextInput style={style.input} placeholder='Informe seu nome' value={this.state.name} />
-        <TextInput style={style.input} placeholder='Informe sua idade' value={this.state.age} />
-        <Picker
-          selectedValue={this.state.gender}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({gender: itemValue})
-          }>
-          <Picker.Item label="Masculino" value="M" />
-          <Picker.Item label="Feminino" value="F" />
-        </Picker>
-        <Slider 
-          minimumValue={0}
-          maximumValue={100}
-          onValueChange={(valueSelected) => this.setState({Limit: valueSelected})}
-          value={this.state.Limit}
-          minimumTrackTintColor='#00FF00'
-          maximumTrackTintColor='#FF0000'
-        />
-        <View style={style.areaSwitch}>
-          <Text style={{width: 97, marginTop: 5}}>Não Estudante</Text>
-          <Switch style={{width: 55}}
-            onValueChange={(valueChange) => this.setState({Studenty: valueChange})}
-            value={this.state.Studenty}
-          />
-          <Text style={{width: 70, marginTop: 5}}>Estudante</Text>
+        <View style={style.header}>
+
+          <TouchableOpacity>
+            <Image 
+              source={require('./src/img/logo.png')}
+              style={style.logo} />
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <Image 
+              source={require('./src/img/send.png')}
+              style={style.send} />
+          </TouchableOpacity>
+
         </View>
-        <Button style={style.btn} title='Abrir Conta' name="Enviar" onPress={() => this.sendform()} />
+
+        <FlatList 
+          showsHorizontalScrollIndicator={false}
+          data={this.state.feed}
+          renderItem={(item) => <List data={item} />}
+        />
+
       </View>
     );
   }
@@ -76,25 +98,26 @@ class App extends Component {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 80,
-    padding: 50
+    marginTop: 30
   },
-  btn: {
-    flex:1,
-    width: 250,
-    flexDirection: 'column',
-  },
-  areaSwitch: {
-    flex: 1,
+  header: {
+    height: 55,
+    backgroundColor: '#fff',
     flexDirection: 'row',
-    marginTop: 10
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 5,
+    borderBottomWidth: 0.2,
+    shadowColor: '#000',
+    elevation: 1,
   },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
+  logo:{
+
   },
+  send: {
+    width: 23,
+    height: 23,
+  }
 });
 
 export default App;
