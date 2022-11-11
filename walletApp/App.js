@@ -1,4 +1,3 @@
-import { Picker } from '@react-native-picker/picker';
 import React, { Component } from 'react';
 import { 
   Text, 
@@ -8,7 +7,7 @@ import {
   TouchableOpacity,
   Keyboard
 } from 'react-native';
-//import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class App extends Component {
 
@@ -22,15 +21,16 @@ class App extends Component {
   }
 
   //sempre é chamado quando a tela for montada ciclo de vida do react native
-  componentDidMount(){
-
+  async componentDidMount(){
+    let name = await AsyncStorage.getItem('name');
+    this.setState({name: name});
   }
 
   //toda vez que o state é atualizado react native
-  componentDidUpdate(prevProps, prevState){
+  async componentDidUpdate(prevProps, prevState){
     const name = this.state.name;
     if(prevState != name){
-      //localStorage.setItem('name', this.state.name);
+      await AsyncStorage.setItem('name', this.state.name);
     }
   }
 
