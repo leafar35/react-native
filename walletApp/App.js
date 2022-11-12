@@ -1,73 +1,72 @@
-import { Picker } from '@react-native-picker/picker';
 import React, { Component } from 'react';
-import { 
-  Text, 
-  View, 
+import {
+  View,
+  Text,
+  Image,
+  Modal,
   StyleSheet,
-  Switch,
   TextInput,
-  Button
+  TouchableOpacity
 } from 'react-native';
-import Slider from '@react-native-community/slider';
+import ContentModal from './src/Components/ContentModal';
 
 class App extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      name: '',
-      age: '',
-      gender: 'M',
-      Limit: 0,
-      Studenty: false,      
+      alcohol: 0,
+      gasoline: 0,
+      bestOption: '',
+      modalVisible: false
     }
-
-    this.sendform = this.sendform.bind(this);
+    this.calc = this.calc.bind(this);
+    this.exit = this.exit.bind(this);
   }
 
-  sendform(){
-    if(this.state.name.trim() == ''){
-      return alert('Informe o Nome');
-    }
-    if(this.state.age.trim() == ''){
-      return alert('Informe a idade');
-    }
-    if(this.state.Limit == 0){
-      return alert('Selecione o limite!');
-    }
-    alert('Conta aberta com sucesso!');
+  calc(){
+    this.setState({modalVisible: true});
+    let result = (this.state.alcohol/this.state.gasoline);
+    if(result < 0.7)
+      return this.setState({bestOption: 'Álcool'});
+    return this.setState({bestOption: 'Gásolina'});
+  }
+
+  exit(){
+    this.setState({modalVisible: false});
   }
 
   render(){
     return(
       <View style={style.container}>
-        <TextInput style={style.input} placeholder='Informe seu nome' value={this.state.name} />
-        <TextInput style={style.input} placeholder='Informe sua idade' value={this.state.age} />
-        <Picker
-          selectedValue={this.state.gender}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({gender: itemValue})
-          }>
-          <Picker.Item label="Masculino" value="M" />
-          <Picker.Item label="Feminino" value="F" />
-        </Picker>
-        <Slider 
-          minimumValue={0}
-          maximumValue={100}
-          onValueChange={(valueSelected) => this.setState({Limit: valueSelected})}
-          value={this.state.Limit}
-          minimumTrackTintColor='#00FF00'
-          maximumTrackTintColor='#FF0000'
-        />
-        <View style={style.areaSwitch}>
-          <Text style={{width: 97, marginTop: 5}}>Não Estudante</Text>
-          <Switch style={{width: 55}}
-            onValueChange={(valueChange) => this.setState({Studenty: valueChange})}
-            value={this.state.Studenty}
+        <View style={style.areaLogo}>
+          <Image 
+            style={style.logo}
+            source={require('./src/imgs/logo.png')}
           />
-          <Text style={{width: 70, marginTop: 5}}>Estudante</Text>
+          <Text style={style.title}>Qual melhor opção?</Text>
         </View>
-        <Button style={style.btn} title='Abrir Conta' name="Enviar" onPress={() => this.sendform()} />
+
+        <View style={style.areaInput}>
+          <Text style={style.labelInput}>Álcool (preço por litro): </Text>
+          <TextInput style={style.input} value={this.state.alcohol} onChangeText={(text) => this.setState({alcohol: text})} />
+        </View>
+
+        <View style={style.areaInput}>
+          <Text style={style.labelInput}>Gasolina (preço por litro): </Text>
+          <TextInput style={style.input} value={this.state.gasoline} onChangeText={(text) => this.setState({gasoline: text})} />
+        </View>
+
+        <TouchableOpacity style={style.btncalc} onPress={() => this.calc()}>
+          <Text style={style.textbtn}>Calcular</Text>
+        </TouchableOpacity>
+
+        <Modal transparent={false} animationType='slide' visible={this.state.modalVisible}>
+          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <ContentModal state={this.state} fechar={this.exit}></ContentModal>
+          </View>
+        </Modal>
+
       </View>
     );
   }
@@ -76,25 +75,50 @@ class App extends Component {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 80,
-    padding: 50
+    backgroundColor: '#000'
   },
-  btn: {
-    flex:1,
-    width: 250,
-    flexDirection: 'column',
+  areaLogo: {
+    alignItems: 'center',
   },
-  areaSwitch: {
-    flex: 1,
-    flexDirection: 'row',
-    marginTop: 10
+  logo: {
+    marginTop: 100
   },
-  input: {
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginTop: 15,
+  },
+  areaInput: {
+    marginTop: 35,
+  },
+  labelInput: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
+    paddingLeft: 5
+  },
+  input:{
     height: 40,
-    margin: 12,
+    margin: 5,
     borderWidth: 1,
-    padding: 10,
+    padding: 5,
+    backgroundColor: '#fff',
+    borderRadius: 5
   },
+  btncalc: {
+    marginTop: 35,
+    backgroundColor: "#FF4500",
+    borderRadius: 10,
+    paddingVertical: 10,
+  },
+  textbtn: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
+  }
 });
 
 export default App;
