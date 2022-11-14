@@ -1,100 +1,125 @@
-import { Picker } from '@react-native-picker/picker';
-import React, { Component } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   Text, 
   View, 
-  StyleSheet,
-  Switch,
+  SafeAreaView,
   TextInput,
-  Button
+  StyleSheet,
+  Keyboard,
+  TouchableOpacity,
 } from 'react-native';
-import Slider from '@react-native-community/slider';
+import api from './src/services/api';
 
-class App extends Component {
+export default function App() {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      name: '',
-      age: '',
-      gender: 'M',
-      Limit: 0,
-      Studenty: false,      
-    }
+  const [cep, setCep] = useState('');
+  const [result, setResult] = useState(null);
+  const inputRef = useRef(null);
 
-    this.sendform = this.sendform.bind(this);
+  function clearText(){
+    setCep('');
+    setResult(null);
+    inputRef.current.focus();
+    Keyboard.dismiss();
   }
 
-  sendform(){
-    if(this.state.name.trim() == ''){
-      return alert('Informe o Nome');
+  async function search(){
+    try{
+      if(!cep){
+        setCep('');
+        return alert('Digite um CEP');      
+      }
+      const response = await api.get(`/${cep}/json`);
+      setResult(response.data);
+      Keyboard.dismiss();
+    }catch(e){
+      alert('Houve um erro!');
     }
-    if(this.state.age.trim() == ''){
-      return alert('Informe a idade');
-    }
-    if(this.state.Limit == 0){
-      return alert('Selecione o limite!');
-    }
-    alert('Conta aberta com sucesso!');
   }
 
-  render(){
-    return(
-      <View style={style.container}>
-        <TextInput style={style.input} placeholder='Informe seu nome' value={this.state.name} />
-        <TextInput style={style.input} placeholder='Informe sua idade' value={this.state.age} />
-        <Picker
-          selectedValue={this.state.gender}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({gender: itemValue})
-          }>
-          <Picker.Item label="Masculino" value="M" />
-          <Picker.Item label="Feminino" value="F" />
-        </Picker>
-        <Slider 
-          minimumValue={0}
-          maximumValue={100}
-          onValueChange={(valueSelected) => this.setState({Limit: valueSelected})}
-          value={this.state.Limit}
-          minimumTrackTintColor='#00FF00'
-          maximumTrackTintColor='#FF0000'
-        />
-        <View style={style.areaSwitch}>
-          <Text style={{width: 97, marginTop: 5}}>Não Estudante</Text>
-          <Switch style={{width: 55}}
-            onValueChange={(valueChange) => this.setState({Studenty: valueChange})}
-            value={this.state.Studenty}
-          />
-          <Text style={{width: 70, marginTop: 5}}>Estudante</Text>
-        </View>
-        <Button style={style.btn} title='Abrir Conta' name="Enviar" onPress={() => this.sendform()} />
+  return(
+    <SafeAreaView style={style.container}>
+      <View style={{alignItems: 'center'}}>
+        <Text style={style.title}>Buscador de CEP</Text>
+        <TextInput
+          placeholder='Digite seu CEP'
+          style={style.input}
+          value={cep}
+          onChangeText={(text) => setCep(text)}
+          keyboardType='numeric'
+          ref={inputRef}
+        />        
       </View>
-    );
-  }
+      <View style={style.areaBtn}>
+
+        <TouchableOpacity style={[style.btn, { backgroundColor: 'green' }]} onPress={search}>
+          <Text style={[style.btntext]}>Buscar</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[style.btn, { backgroundColor: 'red' }]} onPress={clearText}>
+          <Text style={style.btntext}>Limpar</Text>
+        </TouchableOpacity>
+
+      </View>
+
+      { result && 
+        <View style={style.result}>
+          <Text style={style.itemText}>CEP.: {result.cep}</Text>
+          <Text style={style.itemText}>Logradouro.: {result.logradouro}</Text>
+          <Text style={style.itemText}>Complemento.: {result.complement}</Text>
+          <Text style={style.itemText}>Bairro.: {result.bairro}</Text>
+          <Text style={style.itemText}>Uf.: {result.uf}</Text>
+        </View>
+      }      
+
+    </SafeAreaView>
+  );
+
 }
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 80,
-    padding: 50
+    marginTop: 80
   },
-  btn: {
-    flex:1,
-    width: 250,
-    flexDirection: 'column',
-  },
-  areaSwitch: {
-    flex: 1,
-    flexDirection: 'row',
-    marginTop: 10
+  title: {
+    marginTop:25,
+    marginBottom: 15,
+    fontSize: 25,
+    fontWeight: 'bold'
   },
   input: {
-    height: 40,
-    margin: 12,
+    backgroundColor: '#FFF',
     borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    width:'90%',
     padding: 10,
+    fontSize: 18,
   },
+  areaBtn: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: 15,
+    justifyContent: 'space-around'
+  },
+  btn: {
+    height: 50,
+    padding: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5
+  },
+  btntext: {
+    color: '#fff',
+    fontSize: 22
+  },
+  result: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  itemText: {
+    fontSize: 22 
+  }
 });
-
-export default App;
