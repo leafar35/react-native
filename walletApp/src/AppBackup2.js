@@ -1,34 +1,35 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { 
   Text, 
   View, 
   StyleSheet,
   TextInput,
   Button,
-  SafeAreaView,
+  FlatList,
+  ActivityIndicator,
 } from 'react-native';
-import Login from './src/Components/Login';
+import List from './src/Components/List';
 import firebase from './src/Connects/firebaseConnection';
 
 export default function App(){
-  const [user, setUser] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
-  async function create(){
-    await firebase.auth().createUserWithEmailAndPassword(email, password).then((value) => {
-      createUserFull(value.user.uid);
-      alert('Cadastro realizado som sucesso');
-    }).catch(() => {
-      alert('Deu algo errado');
-    });
-  }
 
-  if(!user){
-    return <Login />
+  async function create(){
+    if(email && password){
+      await firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then((value) =>{
+        setEmail('');
+        setPassword('');
+        alert('Usuário Criado'+value.user.email);
+      }).catch((error) => {
+        alert('Algo deu errado'+error.code);
+      });
+    }
   }
+  
   return(
-    <SafeAreaView style={style.container}>      
+    <View style={style.container}>        
       <Text style={style.text}>E-mail</Text>
       <TextInput 
         value={email}
@@ -43,16 +44,15 @@ export default function App(){
       />
       <Button title='Cadastrar' onPress={() => create()} />
 
-    </SafeAreaView>
+    </View>
   );
 }
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
-    paddingHorizontal: 10,
-    backgroundColor: '#2223fc'
+    marginTop: 80,
+    padding: 50
   },
   text: {
     fontSize: 20

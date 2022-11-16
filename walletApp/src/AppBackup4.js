@@ -5,16 +5,24 @@ import {
   StyleSheet,
   TextInput,
   Button,
-  SafeAreaView,
+  ActivityIndicator,
 } from 'react-native';
-import Login from './src/Components/Login';
-import firebase from './src/Connects/firebaseConnection';
+import firebase from './Connects/firebaseConnection';
 
 export default function App(){
-  const [user, setUser] = useState(null);
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
+  async function createUserFull(key){
+    await firebase.database().ref('usuarios').child(key).set({
+      name: name
+    });
+    setName('');
+    setEmail('');    
+    setPassword('');    
+  }
+
   async function create(){
     await firebase.auth().createUserWithEmailAndPassword(email, password).then((value) => {
       createUserFull(value.user.uid);
@@ -24,11 +32,14 @@ export default function App(){
     });
   }
 
-  if(!user){
-    return <Login />
-  }
   return(
-    <SafeAreaView style={style.container}>      
+    <View style={style.container}>        
+    <Text style={style.text}>Nome</Text>
+      <TextInput 
+        value={name}
+        style={style.input}
+        onChangeText={(name) => setName(name)}
+      />
       <Text style={style.text}>E-mail</Text>
       <TextInput 
         value={email}
@@ -43,16 +54,15 @@ export default function App(){
       />
       <Button title='Cadastrar' onPress={() => create()} />
 
-    </SafeAreaView>
+    </View>
   );
 }
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
-    paddingHorizontal: 10,
-    backgroundColor: '#2223fc'
+    marginTop: 80,
+    padding: 50
   },
   text: {
     fontSize: 20
