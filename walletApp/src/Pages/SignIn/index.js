@@ -9,9 +9,10 @@ export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState(''); 
   const { user } = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
 
   function handleLogin(){
-    
+    signIn(email, password);
   }
 
   return(
@@ -35,7 +36,7 @@ export default function SignIn() {
             autoCorrect={false}
             autoCaptalize='none'
             value={password}
-            onChangeText={(password) => setEmail(password)}
+            onChangeText={(password) => setPassword(password)}
           />
         </AreaInput>
 

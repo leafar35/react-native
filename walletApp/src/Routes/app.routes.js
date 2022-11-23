@@ -1,16 +1,38 @@
 import React from "react";
-import { createStackNavigator } from '@react-navigation/stack'
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Home from '../Pages/Home';
+import New from "../Pages/New";
+import Profile from "../Pages/Profile";
 
-const AppStack = createStackNavigator();
+const AppDrawer = createDrawerNavigator();
 
 function AppRoutes(){
 
     return (
-        <AppStack.Navigator>
-            <AppStack.Screen name="Home" component={Home} />
-        </AppStack.Navigator>
+        <AppDrawer.Navigator 
+            useLegacyImplementation={true}
+            screenOptions={{
+                headerShown:false,
+                drawerStyle: {
+                    backgroundColor: '#171717',
+                },
+                labelStyle:{
+                    fontWeight: 'bold',
+                },
+                drawerActiveTintColor: '#FFF',
+                drawerActiveBackgroundColor: '#00b94a',
+                drawerInactiveBackgroundColor: '#000',
+                drawerInactiveTintColor: '#DDD',
+                drawerItemStyle: {
+                    marginVertical: 5,
+                }
+            }}
+        >
+            <AppDrawer.Screen name="Home" component={Home} />
+            <AppDrawer.Screen name="Registrar" component={New} />
+            <AppDrawer.Screen name="Profile" component={Profile} />
+        </AppDrawer.Navigator>
     )
 
 }
