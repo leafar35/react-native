@@ -7,6 +7,7 @@ function AuthProvider({ children }){
 
     const [user, serUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [loadingAuth, setLoadingAuth] = useState(false);
 
     useEffect(() => {
 
@@ -24,6 +25,7 @@ function AuthProvider({ children }){
     },[]);
 
     async function signIn(email, password){
+        setLoadingAuth(true);
         await firebase.auth().signInWithEmailAndPassword(email, password)
         .then(async(value) => {
             let uid = value.user.uid;
@@ -36,14 +38,17 @@ function AuthProvider({ children }){
                 };
                 serUser(data);
                 storageUser(data);
+                setLoadingAuth(false);
             });
         })
         .catch(err => {
             alert(err.code);
+            setLoadingAuth(false);
         });
     }
 
     async function signUp(email, password, name){
+        setLoadingAuth(true);
         await firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(async(value) => {
             let uid = value.user.uid;
@@ -59,12 +64,14 @@ function AuthProvider({ children }){
                 };
                 serUser(data);
                 storageUser(data);
+                setLoadingAuth(false);
                 alert('Usuário cadastra com sucesso!');
             })
 
         }).catch(err => {
             console.log(err);
             console.log('Tente novamente mais tarde!');
+            setLoadingAuth(false);
         })
     }
 
@@ -81,7 +88,7 @@ function AuthProvider({ children }){
     }
 
     return (
-        <AuthContext.Provider value={{signed: !!user, user, signUp, signIn, loading, signOut}}>
+        <AuthContext.Provider value={{signed: !!user, user, signUp, signIn, loading, signOut, loadingAuth}}>
             {children}
         </AuthContext.Provider>
     );
