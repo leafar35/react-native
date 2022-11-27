@@ -5,7 +5,7 @@ import AppRoutes from './app.routes';
 
 function Routes(){
     return (
-        !true ? <AppRoutes /> : <AuthRoutes />
+        true ? <AppRoutes /> : <AuthRoutes />
     )
 }
 

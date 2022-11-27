@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Platform, ActivityIndicator, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Background, Container, Logo, AreaInput, Input, SubmitButton, SubmitText, BoxBackground, FormTitle, AreaLogo, TextLogo } from './styles';
+import { Background, Container, Logo, AreaInput, Input, SubmitButton, SubmitText, BoxBackground, FormTitle, AreaLogo, TextLogo, ContainerTitle } from './styles';
 
 export default function SignIn() {
   const navigation = useNavigation();
@@ -19,9 +19,11 @@ export default function SignIn() {
 
           <BoxBackground>
 
-            <FormTitle>
-              Entrar
-            </FormTitle>
+            <ContainerTitle>
+              <FormTitle>
+                Entrar
+              </FormTitle>
+            </ContainerTitle>
 
             <AreaInput>
               <Input 

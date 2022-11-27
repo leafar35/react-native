@@ -18,18 +18,23 @@ export const BoxBackground = styled.View`
     padding: 15px;
 `;
 
+export const ContainerTitle = styled.View`
+    width: 80px;
+    border-bottom-width: 6px;
+    border-bottom-color: #F7931B;
+    margin-bottom: 40px;
+`;
+
 export const FormTitle = styled.Text`
     margin-top: 30px;
-    margin-bottom: 40px;
     font-size: 28px;
     font-weight: bold;
     color: #FFF;
-    border-bottom-color: black;
-    border-bottom-width: 2px;
 `;
 
 export const AreaLogo = styled.View`
     flex-direction: row;
+    margin-bottom: 20px;
 `;
 
 export const Logo = styled.Image`
@@ -37,7 +42,7 @@ export const Logo = styled.Image`
 `;
 
 export const TextLogo = styled.Text`
-    margin-left: 5%;
+    margin-left: 3%;
     font-size: 28px;
     color: #FFF;
     font-weight: bold;
