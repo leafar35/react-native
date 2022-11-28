@@ -1,17 +1,54 @@
-import { View, Text } from "react-native"
-import PureChart from 'react-native-pure-chart';
+import PureChart from "custom-react-native-pure-chart";
+import { Container, Legende, ContainerLegend, TextContainerLegend, ContainerLegends, ContainerChart, Background } from './styled';
 
 export default function ChartPie() {
-    var data = [
-        {seriesName: 'series1', data: [30, 200, 170, 250, 10], color: '#297AB1'},
-        {seriesName: 'series2', data: [40, 250, 110, 290, 14], color: 'blue'}
+
+    let sampleData = [
+        {
+          value: 50,
+          label: 'Marketing',
+          color: 'red',
+        }, {
+          value: 25,
+          label: 'Support',
+          color: 'blue'
+        }
     ]
+
     return (
-        <View>
-            <Text>
-                teste 1
-            </Text>
-            <PureChart data={data} type='bar' />
-        </View>
+        <Background>
+            <Legende size='20px' margin='20px'>
+                Relação
+            </Legende>
+            <Container>           
+
+                <ContainerLegends>
+
+                    <ContainerLegend color='red'>
+                        <TextContainerLegend>
+                            48,50%
+                        </TextContainerLegend>
+                    </ContainerLegend>
+                    <Legende>
+                        Entradas
+                    </Legende>
+
+                    <ContainerLegend color='blue'>
+                        <TextContainerLegend>
+                            48,50%
+                        </TextContainerLegend>
+                    </ContainerLegend>
+                    <Legende>
+                        Saídas
+                    </Legende>
+
+                </ContainerLegends>
+
+                <ContainerChart>
+                    <PureChart data={sampleData} type='pie' backgroundColor='transparent' />
+                </ContainerChart>
+
+            </Container>
+        </Background>
     )
 }

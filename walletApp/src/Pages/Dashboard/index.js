@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { ScrollView } from 'react-native';
+import ChartBar from '../../Components/ChartBar';
+import ChartLine from '../../Components/ChartLine';
 import ChartPie from '../../Components/ChartPie';
 import Header from '../../Components/Header';
 import WalletBox from '../../Components/WalletBox';
@@ -15,12 +18,16 @@ export default function Dashboard() {
       <Header />
       <Container>
         <TextTitle>Dashboard</TextTitle>
-        <ContainerBoxs>
-          <WalletBox color='#4E41F0' img={balance} title='Saldo' value={1500} />
-          <WalletBox color='#F7931B' img={upImg} title='Entradas' value={50} />
-          <WalletBox color='#E44C4E' img={downImg} title='Saídas' value={50} />
-          <ChartPie />
-        </ContainerBoxs>
+        <ScrollView>
+          <ContainerBoxs>          
+            <WalletBox color='#4E41F0' img={balance} title='Saldo' value={1500} />
+            <WalletBox color='#F7931B' img={upImg} title='Entradas' value={50} />
+            <WalletBox color='#E44C4E' img={downImg} title='Saídas' value={50} />
+            <ChartLine />
+            <ChartBar title='Saídas' />
+            <ChartBar title='Entradas' />
+          </ContainerBoxs>
+        </ScrollView>
       </Container>
     </Background>
   );
