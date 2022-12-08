@@ -1,13 +1,16 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-    width: 90%;
+    width: 95%;
     padding: 3%;
     height: 50px;
+    margin-top: 2px;
+    margin-left: 8px;
+    margin-bottom: 2px;
     border-radius: 7px;
     flex-direction: row;
     align-items: center;
-    background-color: '#4E41F0';
+    background-color: #1B1F38;
 `;
 
 export const Title = styled.Text`

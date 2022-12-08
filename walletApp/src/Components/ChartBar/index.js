@@ -3,7 +3,7 @@ import { Background, ContainerCharBar, ContainerLegendsBar, ContainerLegendBar, 
 
 export default function ChartBar({title}) {
     var data = [
-        {seriesName: 'series1', data: [30, 200, 170, 250, 10], color: 'red'},
+        {seriesName: 'series1', data: [30, 200, 170, 250, 10], color: '#F7931B'},
         {seriesName: 'series2', data: [40, 250, 110, 290, 14], color: 'blue'}
     ]
     return (
@@ -14,7 +14,7 @@ export default function ChartBar({title}) {
 
             <ContainerLegendsBar>
 
-                <ContainerLegendBar color='red'>
+                <ContainerLegendBar color='#F7931B'>
                     <TextContainerLegendBar>
                         48,50%
                     </TextContainerLegendBar>

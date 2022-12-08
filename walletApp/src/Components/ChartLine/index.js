@@ -3,7 +3,7 @@ import { LegendLine, ContainerChartLine, Background, ContainerLegendsLine, Conta
 
 export default function ChartLine() {
     var data = [
-        {seriesName: 'series1', data: [30, 200, 170, 10], color: 'red'},
+        {seriesName: 'series1', data: [30, 200, 170, 10], color: '#F7931B'},
         {seriesName: 'series2', data: [40, 250, 110, 14], color: 'blue'}
     ]
     return (
@@ -14,7 +14,7 @@ export default function ChartLine() {
 
             <ContainerLegendsLine>
 
-                <ContainerLegendLine color='red'>
+                <ContainerLegendLine color='#F7931B'>
                     <TextContainerLegendLine>
                         48,50%
                     </TextContainerLegendLine>

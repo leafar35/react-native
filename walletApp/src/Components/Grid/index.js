@@ -11,7 +11,7 @@ export default function GridItem({tagcolor, title, data, value}) {
                 <Title>{title}</Title>
                 <SubTitle>{moment(data, 'yyyy-MM-DD').format('DD/MM/yyyy')}</SubTitle>
             </ContainerTitles>
-            <ValueFormat>{value}</ValueFormat>
+            <ValueFormat>R$ {value}</ValueFormat>
         </Container>
     );    
 }

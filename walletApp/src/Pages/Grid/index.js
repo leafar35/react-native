@@ -2,10 +2,9 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import GridItem from '../../Components/Grid';
 import Header from '../../Components/Header';
-import { Background, ContainerGrid } from './styled';
+import { Background, ContainerGrid, Title, Legend, ContainerLegends, Legends, TagColorLegend } from './styled';
 
-export default function Grid() {
-
+export default function Grid({route}) {
   const rows = [
     {
       "id": 4,
@@ -36,12 +35,26 @@ export default function Grid() {
   return(
     <Background>
       <Header />
-      <GridItem tagcolor='red' title='yna bla' data='21/06/2015' value='25,00' />
+      <Title>{route.params?.title}</Title>
+      <ContainerLegends>
+        <Legends>
+          <Legend>
+            Eventuais
+          </Legend>
+          <TagColorLegend tagcolor='blue' />
+        </Legends>
+        <Legends>
+          <Legend>
+            Recorrentes
+          </Legend>
+          <TagColorLegend tagcolor='#F7931B' />
+        </Legends>
+      </ContainerLegends>
       <ContainerGrid>
         <FlatList
           keyExtractor={item => item.id}
           data={rows}
-          renderItem={({item}) => <GridItem tagcolor={(item.type == 'Saída' ? 'red' : 'blue')} title={item.description} data={item.date} value={item.amount.toFixed(2)} />}
+          renderItem={({item}) => <GridItem tagcolor={(item.type == 'Saída' ? '#F7931B' : 'blue')} title={item.description} data={item.date} value={item.amount.toFixed(2)} />}
         />
       </ContainerGrid>
     </Background>

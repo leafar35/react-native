@@ -7,7 +7,7 @@ export default function ChartPie() {
         {
           value: 50,
           label: 'Marketing',
-          color: 'red',
+          color: '#F7931B',
         }, {
           value: 25,
           label: 'Support',
@@ -24,7 +24,7 @@ export default function ChartPie() {
 
                 <ContainerLegends>
 
-                    <ContainerLegend color='red'>
+                    <ContainerLegend color='#F7931B'>
                         <TextContainerLegend>
                             48,50%
                         </TextContainerLegend>
