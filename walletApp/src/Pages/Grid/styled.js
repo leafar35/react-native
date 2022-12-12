@@ -18,6 +18,7 @@ export const Title = styled.Text`
     margin-top: 15px;
     margin-left: 10px;
     margin-bottom: 15px;
+    width: 50%;
 `;
 
 export const ContainerLegends = styled.View`
@@ -43,4 +44,17 @@ export const TagColorLegend = styled.View`
     width: 30%;
     height: 10%;
     background-color: ${props => props.tagcolor};
+`;
+
+export const ContainerFilter = styled.View`
+    flex-direction: row;
+`;
+
+export const MessageGrid = styled.Text`
+    color: #FFF;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+    font-style: italic;
 `;

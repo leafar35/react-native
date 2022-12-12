@@ -1,41 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
-import GridItem from '../../Components/Grid';
 import Header from '../../Components/Header';
-import { Background, ContainerGrid, Title, Legend, ContainerLegends, Legends, TagColorLegend } from './styled';
+import GridItem from '../../Components/Grid';
+import Filter from '../../Components/Filter';
+import HttpService from '../../services/httpservice';
+import { Background, ContainerGrid, Legend, ContainerLegends, Legends, TagColorLegend, MessageGrid } from './styled';
 
-export default function Grid({route}) {
-  const rows = [
-    {
-      "id": 4,
-      "description": "Uma bala",
-      "amount": 1.5,
-      "type": "Saída",
-      "frequency": "Recorrente",
-      "date": "2022-05-01T00:00:00.000Z"
-    },
-    {
-      "id": 5,
-      "description": "Uma bala de prata",
-      "amount": 1.5,
-      "type": "Saída",
-      "frequency": "Recorrente",
-      "date": "2022-05-01T00:00:00.000Z"
-    },
-    {
-      "id": 6,
-      "description": "Uma bala de prata",
-      "amount": 1.5,
-      "type": "Saída",
-      "frequency": "Recorrente",
-      "date": "2022-05-01T00:00:00.000Z"
+export default function Grid({navigation,route}) {
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    async function handleExpanses(){
+      let response = await HttpService.get('/expanses');
+      let type = (route.params?.title === 'Saídas') ? 'Saída' : 'Entrada';
+      setRows(response.data.data.filter(item => item.type === type));
     }
-  ];
+    handleExpanses();
+  },[]);
 
   return(
     <Background>
-      <Header />
-      <Title>{route.params?.title}</Title>
+      <Header navigation={navigation} />
+      <Filter title={route.params?.title} />
       <ContainerLegends>
         <Legends>
           <Legend>
@@ -51,11 +37,18 @@ export default function Grid({route}) {
         </Legends>
       </ContainerLegends>
       <ContainerGrid>
-        <FlatList
-          keyExtractor={item => item.id}
-          data={rows}
-          renderItem={({item}) => <GridItem tagcolor={(item.type == 'Saída' ? '#F7931B' : 'blue')} title={item.description} data={item.date} value={item.amount.toFixed(2)} />}
-        />
+        {rows.length ? (
+          <FlatList
+            keyExtractor={item => item.id}
+            data={rows}
+            renderItem={({item}) => <GridItem tagcolor={(item.type == 'Saída' ? '#F7931B' : 'blue')} title={item.description} data={item.date} value={item.amount.toFixed(2)} />}
+          />
+        )
+        :
+          (  
+            <MessageGrid>Nenhuma Entrada</MessageGrid>
+          )
+        }
       </ContainerGrid>
     </Background>
   );

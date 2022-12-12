@@ -1,10 +1,12 @@
 import PureChart from "custom-react-native-pure-chart";
 import { LegendLine, ContainerChartLine, Background, ContainerLegendsLine, ContainerLegendLine, TextContainerLegendLine } from './styled';
 
-export default function ChartLine() {
+export default function ChartLine({entrances, outputs}) {
+    let dataentrances = (entrances.length) ? entrances : [0];
+    let outputsdata = (outputs.length) ? outputs : [0];
     var data = [
-        {seriesName: 'series1', data: [30, 200, 170, 10], color: '#F7931B'},
-        {seriesName: 'series2', data: [40, 250, 110, 14], color: 'blue'}
+        {seriesName: 'series1', data: outputsdata, color: '#F7931B'},
+        {seriesName: 'series2', data: dataentrances, color: 'blue'}
     ]
     return (
         <Background>
@@ -16,7 +18,7 @@ export default function ChartLine() {
 
                 <ContainerLegendLine color='#F7931B'>
                     <TextContainerLegendLine>
-                        48,50%
+                        {entrances.length}%
                     </TextContainerLegendLine>
                 </ContainerLegendLine>
                 <LegendLine margin='10px'>
@@ -25,7 +27,7 @@ export default function ChartLine() {
 
                 <ContainerLegendLine color='blue'>
                     <TextContainerLegendLine>
-                        48,50%
+                        {outputs.length}%
                     </TextContainerLegendLine>
                 </ContainerLegendLine>
                 <LegendLine margin='10px'>

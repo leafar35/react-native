@@ -17,11 +17,3 @@ export const ContainerBoxs = styled.View`
     flex-direction: column;
     align-items: center;
 `;
-
-export const TextTitle = styled.Text`
-    margin-top: 5px;
-    margin-left: 17px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #FFF;
-`;

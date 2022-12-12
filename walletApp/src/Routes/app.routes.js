@@ -32,7 +32,7 @@ function AppRoutes(){
             <AppDrawer.Screen name="Dashboard" component={Dashboard} />
             <AppDrawer.Screen name="Entradas" component={Grid} initialParams={{title: 'Entradas'}} />
             <AppDrawer.Screen name="Saídas" component={Grid} initialParams={{title: 'Saídas'}} />
-            <AppDrawer.Screen name="New" component={New} />
+            <AppDrawer.Screen name="Novo Registro" component={New} />
         </AppDrawer.Navigator>
     )
 

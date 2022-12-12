@@ -1,10 +1,12 @@
 import PureChart from "custom-react-native-pure-chart";
 import { Background, ContainerCharBar, ContainerLegendsBar, ContainerLegendBar, TextContainerLegendBar, LegendBar } from './styled';
 
-export default function ChartBar({title}) {
+export default function ChartBar({title, entrances, outputs}) {
+    let dataentrances = (entrances.length) ? entrances : [0];
+    let outputsdata = (outputs.length) ? outputs : [0];
     var data = [
-        {seriesName: 'series1', data: [30, 200, 170, 250, 10], color: '#F7931B'},
-        {seriesName: 'series2', data: [40, 250, 110, 290, 14], color: 'blue'}
+        {seriesName: 'series1', data: dataentrances, color: '#F7931B'},
+        {seriesName: 'series2', data: outputsdata, color: 'blue'}
     ]
     return (
         <Background>
@@ -16,7 +18,7 @@ export default function ChartBar({title}) {
 
                 <ContainerLegendBar color='#F7931B'>
                     <TextContainerLegendBar>
-                        48,50%
+                        {dataentrances.length}%
                     </TextContainerLegendBar>
                 </ContainerLegendBar>
                 <LegendBar margin='10px'>
@@ -25,7 +27,7 @@ export default function ChartBar({title}) {
 
                 <ContainerLegendBar color='blue'>
                     <TextContainerLegendBar>
-                        48,50%
+                        {outputsdata.length}%
                     </TextContainerLegendBar>
                 </ContainerLegendBar>
                 <LegendBar margin='10px'>
