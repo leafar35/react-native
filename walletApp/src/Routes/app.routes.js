@@ -6,11 +6,13 @@ const AppDrawer = createDrawerNavigator();
 import Dashboard from '../Pages/Dashboard';
 import Grid from '../Pages/Grid';
 import New from '../Pages/New';
+import CustomDrawer from "../Components/CustomDrawer";
 
 function AppRoutes(){
 
     return (
-        <AppDrawer.Navigator 
+        <AppDrawer.Navigator
+            drawerContent={ (props) => <CustomDrawer {...props} /> }
             useLegacyImplementation={true}
             screenOptions={{
                 headerShown:false,

@@ -14,7 +14,7 @@ export default function Filter({title, setDate}){
 
     return(
         <ContainerFilter>
-            <Title>{title}</Title>
+            <Title>  {title}</Title>
             <RNPickerSelect
                 placeholder={placeholder}
                 style={{
