@@ -1,3 +1,4 @@
+import { Text } from 'react-native';
 import PureChart from "custom-react-native-pure-chart";
 import { Background, ContainerCharBar, ContainerLegendsBar, ContainerLegendBar, TextContainerLegendBar, LegendBar } from './styled';
 
@@ -37,7 +38,15 @@ export default function ChartBar({title, entrances, outputs}) {
             </ContainerLegendsBar>
             
             <ContainerCharBar>
-                <PureChart data={data} type='bar' backgroundColor='transparent' />
+                {entrances.length && outputs.length ? 
+                    (
+                        <PureChart data={data} type='bar' backgroundColor='transparent' />
+                    ) 
+                    : 
+                    (
+                        <Text>Nenhuma Entrada</Text>
+                    )
+                }
             </ContainerCharBar>
         </Background>
     )

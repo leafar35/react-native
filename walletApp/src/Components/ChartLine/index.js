@@ -37,7 +37,15 @@ export default function ChartLine({entrances, outputs}) {
             </ContainerLegendsLine>
             
             <ContainerChartLine>
-                <PureChart data={data} type='line' backgroundColor='transparent' />
+                {data.length ? 
+                    (
+                        <PureChart data={data} type='line' backgroundColor='transparent' />
+                    )
+                    :
+                    (
+                        ""
+                    )
+                }
             </ContainerChartLine>
         </Background>
     )

@@ -1,16 +1,18 @@
 import React from 'react';
-import 'react-native-gesture-handler';
-import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
 import Routes from './src/Routes';
+import 'react-native-gesture-handler';
+import { StatusBar } from 'expo-status-bar';
+import AuthProvider from './src/Context/auth';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
 
   return(
     <NavigationContainer>
-      <StatusBar backgroundColor='#121212' barStyle='light-content' />
-      <Routes />
+      <AuthProvider>
+        <StatusBar backgroundColor='#121212' barStyle='light-content' />
+        <Routes />
+      </AuthProvider>
     </NavigationContainer>
   );
 

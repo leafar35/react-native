@@ -1,13 +1,19 @@
 import React, { useState, useContext } from 'react';
-import { Platform, ActivityIndicator, View } from 'react-native';
+import { AuthContext } from '../../Context/auth';
 import { useNavigation } from '@react-navigation/native';
+import { Platform, ActivityIndicator, View } from 'react-native';
 import { Background, Container, Logo, AreaInput, Input, SubmitButton, SubmitText, BoxBackground, FormTitle, AreaLogo, TextLogo, ContainerTitle } from './styles';
 
 export default function SignIn() {
   const navigation = useNavigation();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState(''); 
+  const [email, setEmail] = useState('rafael@gmail.com.br');
+  const [password, setPassword] = useState('1234');
+  const { Authenticate, token } = useContext(AuthContext);
   
+  function handleLogin(){
+    Authenticate(email, password);
+  }
+
   return(
     <Background>
       <Container behavior={Platform.OS == 'ios' ? 'padding' : '' } enabled >
@@ -46,8 +52,14 @@ export default function SignIn() {
               />
             </AreaInput>
 
-            <SubmitButton>
-                <SubmitText>Acessar</SubmitText>
+            <SubmitButton onPress={handleLogin}>
+                {
+                  token ? (
+                    <ActivityIndicator size={20} color='#FFF' />
+                  ) : (
+                    <SubmitText>Acessar</SubmitText>
+                  )
+                }
             </SubmitButton>
 
           </BoxBackground>

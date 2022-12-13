@@ -13,7 +13,7 @@ export default function New({navigation}) {
   const [description, setDescription] = useState('');
 
   const placeholder = {
-    label: 'Selecione o tipo',
+    label: '    Selecione o tipo',
     value: null,
     color: '#9EA0A4',
   }
@@ -86,7 +86,7 @@ export default function New({navigation}) {
             </LabelText>
 
             <Input 
-              placeholder='Valor Desejado'
+              placeholder='  Valor Desejado'
               KeyboardType="numeric"
               returnkeyType="next"
               onSubmitEditing={() => Keyboard.dismiss() }
@@ -102,7 +102,7 @@ export default function New({navigation}) {
             </LabelText>
 
             <Input 
-              placeholder='Descrição'
+              placeholder='  Descrição'
               KeyboardType="text"
               returnkeyType="next"
               onSubmitEditing={() => Keyboard.dismiss() }
